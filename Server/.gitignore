@@ -1,0 +1,18 @@
+# Ignore node modules directory
+node_modules/
+
+# Ignore environment variables file
+.env
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+
+# Ignore OS or editor files
+.DS_Store
+Thumbs.db
+
+# Exception: do not ignore important.log
+!important.log
