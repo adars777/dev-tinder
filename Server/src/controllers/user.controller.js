@@ -8,11 +8,11 @@ const { validationProfileEditData } = require("../utils/validation");
 const { validPasswordEditData } = require("../utils/validation");
 
 const registerUser = AsyncHandler(async (req, res) => {
-  const { firstName, lastName, email, skills, about, gender, password, age } =
+  const { firstName, lastName, email, skills, about, gender, photoUrl,  password, age } =
     req.body;
 
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({email: email});
     if (user) {
       return res.send("User Already Registered!!");
     }
@@ -25,6 +25,7 @@ const registerUser = AsyncHandler(async (req, res) => {
       gender,
       age,
       password: passwordHash,
+      photoUrl,
       about,
       skills,
     });

@@ -4,19 +4,19 @@ const ApiError = require("../utils/ApiError");
 
 const connectionRequestSchema = new Schema(
   {
-    fromuserId: {
+    fromUserId: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      require: true,
+      required: true,
     },
     toUserId: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      require: true,
+      required: true,
     },
     status: {
       type: String,
-      require: true,
+      required: true,
       enum: {
         values: ["ignored", "interested", "accepted", "rejected"],
         message: `{VALUE} in incorrect status type`,
@@ -32,14 +32,14 @@ connectionRequestSchema.pre("save", function () {
   const connectionRequest = this;
 
   // check if fromUserId is equal to toUserId
-  if (connectionRequest.fromuserId.equals(connectionRequest.toUserId)) {
+  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
     throw new ApiError("cannot send the connection request to yourself!!");
   }
 });
 
-const connectionRequestModel = new mongoose.model(
+const connectionRequestModel = mongoose.model(
   "connectionRequestModel",
   connectionRequestSchema
 );
 
-model.exports = connectionRequestModel;
+module.exports = connectionRequestModel;

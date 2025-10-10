@@ -25,7 +25,7 @@ router.route("/logout").post(userAuth, logout);
 
 router.route("/profile/edit").patch(userAuth, editProfile);
 
-router.route("/profile/editpassword").patch(userAuth, changeCurrentPassword);
+router.route("/profile/edit-password").patch(userAuth, changeCurrentPassword);
 
 router.route("/delete").delete(userAuth, deleteUser);
 

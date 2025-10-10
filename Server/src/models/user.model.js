@@ -28,6 +28,11 @@ const userSchema = new Schema(
         values: ["men", "women", "others"],
       },
     },
+    photoUrl: {
+      type: String,
+      default: "",
+
+    },
     password: {
       type: String,
     },

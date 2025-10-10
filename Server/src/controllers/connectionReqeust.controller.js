@@ -1,7 +1,9 @@
 const { ApiError } = require("../utils/ApiError");
 const { AsyncHandler } = require("../utils/AsyncHandler");
 const { ApiResponse } = require("../utils/ApiResponse");
-const connectionRequest = require("../models/connectionRequest.model");
+const connectionRequestModel = require("../models/connectionRequest.model");
+const User = require("../models/user.model");
+const mongoose = require("mongoose");
 
 const sendResponse = AsyncHandler(async (req, res) => {
   try {
@@ -17,10 +19,10 @@ const sendResponse = AsyncHandler(async (req, res) => {
     }
 
     // if there is any existing connection request
-    const existingConnectionRequest = await connectionRequest.findOne({
+    const existingConnectionRequest = await connectionRequestModel.findOne({
       $or: [
         { fromUserId, toUserId },
-        { fromUserId: toUserId, toUserId, fromUserId },
+        { fromUserId: toUserId, toUserId: fromUserId },
       ],
     });
 
@@ -29,6 +31,14 @@ const sendResponse = AsyncHandler(async (req, res) => {
         .status(400)
         .json(new ApiResponse(400, "CONNECTION REQUEST ALREADY EXIST!!"));
     }
+
+    const connectionRequest = new connectionRequestModel({
+      fromUserId,
+      toUserId,
+      status,
+    });
+
+    // console.log(connectionRequest);
 
     const data = await connectionRequest.save();
     const fromUser = await User.findById(fromUserId).select("firstName");
@@ -61,24 +71,28 @@ const reviewRequest = AsyncHandler(async (req, res) => {
 
     if (!allowedStatus.includes(status)) {
       return res.status(400).json(new ApiResponse(400, "Status not found!!"));
-    }
+    }    
 
-    const connectionRequest = await connectionRequest.findOne({
+    
+    const connectionRequest = await connectionRequestModel.findOne({
       _id: requestId,
       toUserId: loggedUser._id,
       status: "interested",
     });
 
+
+
+    
     if (!connectionRequest) {
-      return res.status(404).json(404, "Connection Request Not Found!");
+      return res.status(404).json(new ApiResponse(404, "Connection Request Not Found!"));
     }
 
     connectionRequest.status = status;
     const data = await connectionRequest.save();
 
     return res
-      .status(100)
-      .json(new ApiResponse(100, `Connection Request: ${status}`, data));
+      .status(200)
+      .json(new ApiResponse(200, `Connection Request: ${status}`, data));
   } catch (error) {
     throw new ApiError(
       500,
