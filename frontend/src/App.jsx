@@ -1,15 +1,13 @@
-import './App.css'
+import "./App.css";
+import Navbar from "./components/Navbar";
 
 function App() {
-
   return (
     <>
-    <h1 className = "text-5xl text-red-700 bg-amber-50">
-      Hi This is from Tailwind React.
-      <p  ></p>
-    </h1>
+      <Navbar />
+      <p>hello from react!!!</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
