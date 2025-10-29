@@ -1,18 +1,58 @@
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post("/api/v2/users/login", data, {
+        withCredentials: true,  // this with credentials is for send cookies and stores in web browser
+      });
+      console.log(res.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log(errors);
+
   return (
     <div>
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-        <legend className="fieldset-legend">Login</legend>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mx-auto mt-20">
+          <div className="flex flex-col gap-2">
+            <label className="label font-semibold text-slate-200 ">Email</label>
 
-        <label className="label">Email</label>
-        <input type="email" className="input" placeholder="Email" />
+            <input
+              type="text"
+              placeholder="Email"
+              className="focus:outline-none border-1 bg-transparent p-2  border-gray-700"
+              {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+            />
+          </div>
 
-        <label className="label">Password</label>
-        <input type="password" className="input" placeholder="Password" />
+          <div className="flex flex-col gap-2 mt-4">
+            <label className="label font-semibold text-slate-00">
+              Password
+            </label>
 
-        <button className="btn btn-neutral mt-4">Login</button>
-      </fieldset>
+            <input
+              type="password"
+              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+              placeholder="Password"
+              {...register("password", {
+                required: true,
+                min: 8,
+                maxLength: 20,
+              })}
+            />
+          </div>
+          <input className="btn btn-neutral mt-4" type="submit" />
+        </fieldset>
+      </form>
     </div>
   );
 };

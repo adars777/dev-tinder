@@ -1,15 +1,14 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Navbar = () => {
   return (
     <div>
-        
       <div className="navbar bg-black shadow-sm">
         <div className="flex-1">
-          <a className="text-xl">🧑🏻‍💻DevTinder</a>
+          <Link to="/">DevTinder</Link>
         </div>
         <div className="flex gap-2">
-         
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -43,7 +42,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
