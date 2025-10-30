@@ -1,23 +1,30 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       const res = await axios.post("/api/v2/users/login", data, {
-        withCredentials: true,  // this with credentials is for send cookies and stores in web browser
+        withCredentials: true, // this with credentials is for send cookies and stores in web browser
       });
-      console.log(res.data.message);
+      console.log(res.data);
+      dispatch(addUser(res.data));
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
   };
-  console.log(errors);
 
   return (
     <div>
