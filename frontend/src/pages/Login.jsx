@@ -18,7 +18,7 @@ const Login = () => {
       const res = await axios.post("/api/v2/users/login", data, {
         withCredentials: true, // this with credentials is for send cookies and stores in web browser
       });
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(addUser(res.data));
       navigate("/");
     } catch (error) {

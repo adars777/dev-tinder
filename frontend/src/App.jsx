@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Feed from "./pages/Feed";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
               <Route path="/login" element={<Login />} />
-              {/* we need to add <Outlet/> in <Body/> file for using the children */}
+              <Route path="/profile" element={<Profile />} />
+              {/* we need to add <Outl et/> in <Body/> file for using the children */}
             </Route>
           </Routes>
         </BrowserRouter>

@@ -82,7 +82,7 @@ const userProfile = AsyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, user, "user fetched successfully"));
   } catch (error) {
-    throw new ApiError(400, "Error while fetching user profile", error);
+    throw new ApiError(401, "Error while fetching user profile", error);
   }
 });
 
