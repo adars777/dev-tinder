@@ -8,11 +8,20 @@ const { validationProfileEditData } = require("../utils/validation");
 const { validPasswordEditData } = require("../utils/validation");
 
 const registerUser = AsyncHandler(async (req, res) => {
-  const { firstName, lastName, email, skills, about, gender, photoUrl,  password, age } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    skills,
+    about,
+    gender,
+    photoUrl,
+    password,
+    age,
+  } = req.body;
 
   try {
-    const user = await User.findOne({email: email});
+    const user = await User.findOne({ email: email });
     if (user) {
       return res.send("User Already Registered!!");
     }
@@ -41,15 +50,17 @@ const registerUser = AsyncHandler(async (req, res) => {
   }
 });
 
-const loginUser = AsyncHandler(async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email);
+
     const user = await User.findOne({ email: email });
     if (!user) {
-      throw new ApiError("Invalid Credentials!!");
+      throw new ApiError(404, "Invalid Credentials!!");
     }
 
-    const isValidPassword = await bcrypt.compare(password, user.password);
+    const isValidPassword = bcrypt.compare(password, user.password);
 
     if (isValidPassword) {
       const token = await jwt.sign(
@@ -65,12 +76,13 @@ const loginUser = AsyncHandler(async (req, res) => {
           new ApiResponse(200, loggedInUser, "Logged In User Successfully!!")
         );
     } else {
-      throw new ApiError("Invalid Credentials!");
+      throw new ApiError(404, "Invalid Credentials!");
     }
   } catch (error) {
+    if (error instanceof ApiError) throw error;
     throw new ApiError(500, "Error while login the user!", error.message);
   }
-});
+};
 
 const userProfile = AsyncHandler(async (req, res) => {
   try {
@@ -143,8 +155,8 @@ const deleteUser = AsyncHandler(async (req, res) => {
   try {
     const id = await req.user._id;
     const user = await User.findByIdAndDelete({ _id: id });
-    if(!user){
-        throw new ApiError("User not found!!!")
+    if (!user) {
+      throw new ApiError("User not found!!!");
     }
     res.cookie("token", null, {
       expires: new Date(Date.now()),

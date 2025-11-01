@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const Login = () => {
   const {
@@ -13,6 +14,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const onSubmit = async (data) => {
     try {
       const res = await axios.post("/api/v2/users/login", data, {
@@ -22,6 +24,9 @@ const Login = () => {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (error) {
+      if(error.status===500){
+        setError("Invalid Credentials Please try Again!!");
+      }
       console.error(error);
     }
   };
@@ -56,6 +61,7 @@ const Login = () => {
                 maxLength: 20,
               })}
             />
+            <div className="text-red-700 font-semibold ">{error}</div>
           </div>
           <input className="btn btn-neutral mt-4" type="submit" />
         </fieldset>
