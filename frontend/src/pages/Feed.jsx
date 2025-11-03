@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { addFeed } from "../utils/feedSlice";
+import UserCard from "../components/UserCard";
 
 const Feed = () => {
-  return (
-    <div className='text-3xl font-semibold'>
-      this is feed page
-    </div>
-  )
-}
+  const feed = useSelector((store) => store.feed);
+  const dispatch = useDispatch();
 
-export default Feed
+  const getFeed = async () => {
+    if (feed) return;
+    try {
+      const res = await axios.get("/api/v2/profile/feed", {
+        withCredentials: true,
+      });
+      dispatch(addFeed(res?.data?.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getFeed();
+  }, []);
+
+  return (
+    <div className="text-3xl font-semibold">
+      {feed && feed.map((user, index) => <UserCard key={index} user={user} />)}
+    </div>
+  );
+};
+
+export default Feed;

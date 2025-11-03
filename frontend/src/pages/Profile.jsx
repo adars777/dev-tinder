@@ -1,22 +1,37 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import EditProfile from "../components/EditProfile";
+// import axios from "axios";
+// import { addUser } from "../utils/userSlice";
+// import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
 
 const Profile = () => {
-  const userData = useSelector((store) => store.user);
+  // const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
 
-  return <div>
-    <div>
-        <h1 className="font-semibold text-3xl mt-10 text-center">
-            This is <span className="capitalize">{userData.data.firstName} {userData.data.lastName}</span>'s Profile Page
-        </h1>
-    </div>
-    <div>
-        <h1>Name: {userData.data.firstName}{userData.data.lastName}</h1>
-        <h1>Email: {userData.data.email}</h1>
-        <h1>Bio: {userData.data.about}</h1>
-        
-    </div>
-  </div>;
+  // const getprofile = async () => {
+  //   try {
+  //     const res = await axios.get("/api/v2/profile/feed", {
+  //       withCredentials: true,
+  //     });
+  //     dispatch(addUser(res.data.data));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getprofile();
+  // }, []);
+
+  return (
+    user && (
+      <div>
+        <EditProfile user={user.data} />
+      </div>
+    )
+  );
 };
 
 export default Profile;

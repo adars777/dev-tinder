@@ -19,10 +19,9 @@ app.use(
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
 
+
 app.use("/api/v2/users", userRouter);
 app.use("/api/v2/connections", connectionRouter);
 app.use("/api/v2/profile", profileRouter);
-
-
 
 module.exports = { app };

@@ -10,25 +10,26 @@ import { useNavigate } from "react-router";
 const Body = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  const userData = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user);
 
   const fetchUser = async () => {
+
     try {
-      const res = await axios.get("/api/v2/users/profile", {
+      const user = await axios.get("/api/v2/users/profile", {
         withCredewntials: true,
       });
 
-      dispatch(addUser(res.data));
+      dispatch(addUser(user.data));
     } catch (error) {
       if (error.status === 500) {
         Navigate("/login");
       }
-      // console.error(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    if (!userData) {
+    if (!user) {
       fetchUser();
     }
   }, []);

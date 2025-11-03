@@ -21,7 +21,7 @@ const Login = () => {
         withCredentials: true, // this with credentials is for send cookies and stores in web browser
       });
       // console.log(res.data);
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.user));
       navigate("/");
     } catch (error) {
       if(error.status===500){
