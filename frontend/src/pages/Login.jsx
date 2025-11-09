@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const Login = () => {
   const {
@@ -24,7 +25,7 @@ const Login = () => {
       dispatch(addUser(res.data.user));
       navigate("/");
     } catch (error) {
-      if(error.status===500){
+      if (error.status === 500) {
         setError("Invalid Credentials Please try Again!!");
       }
       console.error(error);
@@ -63,6 +64,12 @@ const Login = () => {
             />
             <div className="text-red-700 font-semibold ">{error}</div>
           </div>
+          <p className="flex justify-between">
+            <span className="font-semibold">I Don't have an Account? </span>
+            <Link className="justify-between font-semibold text-blue-400 hover:text-blue-500" to="/register">
+              Register Here{" "}
+            </Link>
+          </p>
           <input className="btn btn-neutral mt-4" type="submit" />
         </fieldset>
       </form>

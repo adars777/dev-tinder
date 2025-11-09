@@ -39,7 +39,7 @@ const connections = AsyncHandler(async (req, res) => {
           { fromUserId: loggedUser._id, status: "accepted" },
         ],
       })
-      .populate("fromUserId", "firstName lastName");
+      .populate("fromUserId", "firstName lastName photoUrl about skills age");
 
     if (!connections) {
       throw new ApiError("Connection Not Found!!");
