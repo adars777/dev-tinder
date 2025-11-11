@@ -13,7 +13,7 @@ const receiveRequests = AsyncHandler(async (req, res) => {
         toUserId: loggedUser._id,
         status: "interested",
       })
-      .populate("fromUserId", ["firstName", "lastName"]);
+      .populate("fromUserId", ["firstName", "lastName", "photoUrl"]);
 
     res
       .status(200)

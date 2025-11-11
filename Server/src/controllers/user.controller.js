@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
       throw new ApiError(404, "Invalid Credentials!!");
     }
 
-    const isValidPassword = bcrypt.compare(password, user.password);
+    const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (isValidPassword) {
       const token = await jwt.sign(

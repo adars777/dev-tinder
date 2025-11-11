@@ -23,7 +23,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
-              <Route path="/profile" element={<Requests />} />
+              <Route path="/requests" element={<Requests />} />
+              
 
               {/* we need to add <Outl et/> in <Body/> file for using the children */}
             </Route>

@@ -17,7 +17,7 @@ export default function Register() {
         withCredentials: true,
       });
       console.log(res.data.message);
-      
+
       navigate("/login");
     } catch (error) {
       console.error("Error is:", error);

@@ -9,6 +9,7 @@ import EditProfile from "../components/EditProfile";
 const Profile = () => {
   // const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+console.log(user);
 
   // const getprofile = async () => {
   //   try {

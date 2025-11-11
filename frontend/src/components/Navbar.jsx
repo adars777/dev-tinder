@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { removeFeed } from "../utils/feedSlice";
 
 const Navbar = () => {
-  const user = useSelector((store) => store.user);
+  const userData = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
@@ -23,17 +23,36 @@ const Navbar = () => {
     }
   };
 
+  // const fetchUser = async () => {
+  //   if (userData) return;
+  //   try {
+  //     const res = await axios.get("/api/v2/users/profile", {
+  //       withCredentials: true,
+  //     });
+
+  //     // console.log(res.data.data);
+
+  //     dispatch(addUser(res?.data?.data));
+  //     // console.log(res.data.message);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
+
   return (
     <div>
       <div className="navbar bg-black shadow-sm">
         <div className="flex-1">
           <Link to="/">DevTinder</Link>
         </div>
-        {user && (
+        {userData && (
           <div className="flex gap-2">
             <div className="dropdown dropdown-end flex items-center">
               <div className="font-bold capitalize">
-                Welcome, {user.data.firstName}
+                Welcome, {userData.data.firstName}
               </div>
 
               <div
@@ -42,7 +61,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar mx-5"
               >
                 <div className="w-10 rounded-full">
-                  <img alt="user photo" src={user.data.photoUrl} />
+                  <img alt="user photo" src={userData.data.photoUrl} />
                 </div>
               </div>
               <ul
