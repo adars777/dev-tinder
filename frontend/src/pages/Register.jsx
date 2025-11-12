@@ -12,11 +12,14 @@ export default function Register() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+
+    console.log(data);
+    
     try {
       const res = axios.post("/api/v2/users/register", data, {
         withCredentials: true,
       });
-      console.log(res.data.message);
+      console.log(res);
 
       navigate("/login");
     } catch (error) {
@@ -26,51 +29,66 @@ export default function Register() {
   console.log(errors);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-sm border p-4 mx-auto mt-20 mb-20">
+    <div className="w-screen min-h-screen flex items-center justify-center bg-repeat bg-center bg-auto font-bold">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md px-6">
+        <fieldset className="fieldset shadow-black shadow-2xl  w-normal rounded-xs p-4 m-auto backdrop-blur-xs ">
+          <h1 className="text-2xl  font-semibold text-center mb-5">Sign up</h1>
+
           {/* firstname and last name */}
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-col gap-2">
-              <label className="label font-semibold text-slate-200 ">
-                First Name
-              </label>
+              <label className="label font-bold  text-white ">First Name</label>
 
               <input
                 type="text"
                 placeholder="First name"
                 className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-                {...register("First name", { required: true, maxLength: 80 })}
+                {...register("firstName", { required: true, maxLength: 80 })}
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="label font-semibold text-slate-200 ">
-                Last Name
-              </label>
+              <label className="label font-bold  text-white ">Last Name</label>
 
               <input
                 type="text"
                 placeholder="Last name"
                 className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-                {...register("Last name", { required: true, maxLength: 100 })}
+                {...register("lastName", { required: true, maxLength: 100 })}
               />
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">Email</label>
+          {/* email and password section  */}
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-col ">
+              <label className="label font-bold  text-white ">Email</label>
 
-            <input
-              type="text"
-              placeholder="Email"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-              {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
-            />
+              <input
+                type="text"
+                placeholder="Email"
+                className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+                {...register("email", {
+                  required: true,
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+            </div>
+
+            <div className="flex flex-col ">
+              <label className="label font-bold  text-white ">Password</label>
+              <input
+                type="password"
+                className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+                placeholder="password"
+                {...register("password", { required: true, max: 30, min: 8 })}
+              />
+            </div>
           </div>
 
+          {/* about section  */}
           <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">About</label>
+            <label className="label font-bold  text-white ">About</label>
 
             <textarea
               className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
@@ -79,45 +97,31 @@ export default function Register() {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">
-              Password
-            </label>
-            <input
-              type="password"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-              placeholder="password"
-              {...register("password", { required: true, max: 30, min: 8 })}
-            />
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-col gap-2">
+              <label className="label font-bold  text-white ">Age</label>
+              <input
+                type="number"
+                className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+                placeholder="age"
+                {...register("age", { required: true })}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="label font-bold  text-white ">Skills</label>{" "}
+              <input
+                type="text"
+                className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+                placeholder="HTML, CSS, JS, ..."
+                {...register("skills", { required: true })}
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">Age</label>
-            <input
-              type="number"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-              placeholder="age"
-              {...register("age", { required: true })}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">
-              Skills
-            </label>{" "}
-            <input
-              type="text"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-              placeholder="Skills"
-              {...register("skills", { required: true })}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">
-              Gender
-            </label>{" "}
-            <div className="flex flex-row gap-4 font-semibold">
+          <div className="flex flex-col gap-2 text-white font-bold">
+            <label className="label font-bold  text-white ">Gender</label>{" "}
+            <div className="flex flex-row gap-4 font-bold ">
               <input
                 {...register("gender", { required: true })}
                 type="radio"
@@ -140,28 +144,29 @@ export default function Register() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">
-              Photo URL
-            </label>
+            <label className="label font-bold  text-white ">Photo URL</label>
 
             <input
               type="text"
               className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
               placeholder="photo URL"
-              {...register}
+              {...register("photoUrl")}
             />
           </div>
 
-          <p className="flex justify-between mt-5">
-            <span className="font-semibold">Already have an Account? </span>
+          <p className="flex gap-2 mt-2">
+            <span className="font-bold ">Already have an Account? </span>
             <Link
-              className="gap-4 font-semibold text-blue-400 hover:text-blue-500"
+              className="gap-4 font-bold  text-blue-400 hover:text-blue-500"
               to="/login"
             >
-              Login{" "}
+              Sign In{" "}
             </Link>
           </p>
-          <input className="btn btn-neutral mt-4" type="submit" />
+          <input
+            className="btn btn-neutral bg-transparent rounded-xs text-white border-white border-1.5  font-bold mt-4 hover:border-none hover:bg-black hover:text-white"
+            type="submit"
+          />
         </fieldset>
       </form>
     </div>

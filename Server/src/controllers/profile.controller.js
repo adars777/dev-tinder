@@ -62,7 +62,7 @@ const connections = AsyncHandler(async (req, res) => {
 const userFeed = AsyncHandler(async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 5;
+    const limit = parseInt(req.query.limit) || 20;
     const skips = (page - 1) * limit;
     const loggedUser = await req.user;
 

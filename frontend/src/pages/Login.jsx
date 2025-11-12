@@ -33,28 +33,28 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mx-auto mt-20">
+    <div className="w-screen min-h-screen flex items-center justify-center bg-repeat bg-center bg-auto">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md px-6">
+        <fieldset className="fieldset shadow-black shadow-2xl  w-xs rounded-xs p-4 m-auto backdrop-blur-xl">
+        <h1 className="text-2xl  font-semibold text-center">Sign In</h1>
+
           <div className="flex flex-col gap-2">
-            <label className="label font-semibold text-slate-200 ">Email</label>
+            <label className="label font-semibold text-white ">Email</label>
 
             <input
               type="text"
               placeholder="Email"
-              className="focus:outline-none border-1 bg-transparent p-2  border-gray-700"
+              className="focus:outline-none border-2 bg-transparent p-2 text-white font-bold border-white"
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             />
           </div>
 
           <div className="flex flex-col gap-2 mt-4">
-            <label className="label font-semibold text-slate-00">
-              Password
-            </label>
+            <label className="label font-semibold text-white">Password</label>
 
             <input
               type="password"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
+              className="focus:outline-none border-2 bg-transparent p-2 text-white font-bold border-white"
               placeholder="Password"
               {...register("password", {
                 required: true,
@@ -64,13 +64,19 @@ const Login = () => {
             />
             <div className="text-red-700 font-semibold ">{error}</div>
           </div>
-          <p className="flex justify-between">
+          <p className="flex gap-2 text-white">
             <span className="font-semibold">I Don't have an Account? </span>
-            <Link className="justify-between font-semibold text-blue-400 hover:text-blue-500" to="/register">
-              Register Here{" "}
+            <Link
+              className="justify-between font-bold text-blue-500 hover:text-blue-800"
+              to="/register"
+            >
+              Sign Up{" "}
             </Link>
           </p>
-          <input className="btn btn-neutral mt-4" type="submit" />
+          <input
+            className="btn btn-neutral bg-transparent rounded-xs text-white border-white border-1.5  font-bold mt-4 hover:border-none hover:bg-black hover:text-white"
+            type="submit"
+          />
         </fieldset>
       </form>
     </div>

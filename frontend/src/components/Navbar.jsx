@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import { removeUser } from "../utils/userSlice";
+import {  removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-black shadow-sm">
+      <div className="navbar bg-black shadow-sm fixed top-0 z-10  ">
         <div className="flex-1">
           <Link to="/">DevTinder</Link>
         </div>
@@ -81,6 +81,12 @@ const Navbar = () => {
                     Connections❤️
                   </Link>
                 </li>
+                <li>
+                  <Link className="justify-between" to="/requests">
+                    Connection Requests➕
+                  </Link>
+                </li>
+
                 <li>
                   <a onClick={handleLogout}>Logout</a>
                 </li>

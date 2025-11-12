@@ -16,7 +16,7 @@ const userSchema = new Schema(
       type: String,
       unique: true,
     },
-    skills: { 
+    skills: {
       type: [String],
     },
     about: {
@@ -25,13 +25,13 @@ const userSchema = new Schema(
     gender: {
       type: String,
       enum: {
-        values: ["men", "women", "others"],
+        values: ["male", "female", "others"],
       },
     },
     photoUrl: {
       type: String,
-      default: "",
-
+      default:
+        "https://images.unsplash.com/photo-1629067441737-0c22914c68b3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA5fHxwcm9maWxlJTIwaWNvbnxlbnwwfDJ8MHx8fDI%3D&auto=format&fit=crop&q=60&w=600",
     },
     password: {
       type: String,

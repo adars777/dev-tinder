@@ -28,7 +28,7 @@ const Connections = () => {
 
   return (
       
-      <div className="text-3xl font-semibold">
+      <div className="text-3xl font-semibold mt-25">
         <div className="text-3xl font-bold underline text-center">My Connections</div>
         {connections &&
           connections.map((user, index) => (

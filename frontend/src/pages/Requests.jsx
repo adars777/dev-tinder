@@ -48,7 +48,7 @@ const Requests = () => {
 
   return (
     <div>
-      <h1 className=" items-center text-center font-bold text-3xl underline">
+      <h1 className=" items-center text-center font-bold text-3xl underline mt-20">
         Connection Requests
       </h1>
       {requests && requests.length > 0 ? (
