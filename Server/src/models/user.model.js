@@ -25,8 +25,8 @@ const userSchema = new Schema(
     gender: {
       type: String,
       enum: {
-        values: ["male", "female", "others"],
-      },
+        values: ["male", "female", "others"]
+      }
     },
     photoUrl: {
       type: String,

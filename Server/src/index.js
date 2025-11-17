@@ -1,18 +1,24 @@
 const dotenv = require("dotenv");
 const connectDB = require("./db/index");
 const { app } = require("./app");
+const http = require("http");
+const cors = require("cors");
+const initializeSocket = require("./utils/Socket");
 
 dotenv.config({
   path: "../.env",
 });
 
+const server = http.createServer(app);
+initializeSocket(server);
+
 connectDB()
   .then(() => {
-    app.on("error", (error) => {
+    server.on("error", (error) => {
       console.log("ERROR: ", error);
       throw error;
     });
-    app.listen(process.env.PORT || 8080, () => {
+    server.listen(process.env.PORT || 8080, () => {
       console.log(`Server is running at port: ${process.env.PORT}`);
     });
   })

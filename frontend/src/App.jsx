@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
 import Register from "./pages/Register";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="/chat/:targetUserId" element={<Chat />} />
               
 
               {/* we need to add <Outl et/> in <Body/> file for using the children */}
