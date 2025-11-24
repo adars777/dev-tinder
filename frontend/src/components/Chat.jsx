@@ -1,21 +1,116 @@
-import React from 'react'
-import { useParams } from 'react-router';
-import { IoMdSend } from "react-icons/io";
-
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { createSocketConnection } from "../utils/Socket";
+import axios from "axios";
 
 const Chat = () => {
-  const {targetUserId} = useParams;
-  return (
-    <div className='mt-20 w-2/3 h-[70vh]  mx-auto flex border-2 flex-col justify-between'>
-      <div className='border-b-2 text-3xl '>Chat</div>
-      <div className='flex'>
-        <input className='border-2 w-[75%] m-3 rounded-xl p-2' type="text" placeholder='Enter Message here...'/>
-        <button type="submit" className=' flex gap-2 m-3  px-3 rounded-xl items-center bg-blue-800 hover:bg-blue-900  transition-[background-color,width] duration-300 ease-in-out'>Send <IoMdSend />
+  const { targetUserId } = useParams();
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const user = useSelector((store) => store.user);
+  const userId = user?.data?._id;
 
-</button>
+  const fetchChatMessages = async () => {
+    const chat = await axios.get("/api/v2/chat/fetchchat/" + targetUserId, {
+      withCredentials: true,
+    });
+
+        console.log(chat);
+
+
+    // const chatMessages = chat?.data?.data?.messages.map((msg) => {
+    //   return {
+    //     firstName: msg?.senderId?.firstName,
+    //     lastName:  msg?.senderId?.lastName,
+    //     text: msg.text,
+    //   };
+    // });
+
+
+    const chatMessages =
+  chat?.data?.data
+    ?.flatMap((chatItem) =>
+      chatItem.messages.map((msg) => ({
+        firstName: msg?.senderId?.firstName,
+        lastName: msg?.senderId?.lastName,
+        text: msg.text,
+      }))
+    ) || [];
+
+    
+
+    setMessages(chatMessages);
+  };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
+
+  // UseRef for single socket instance
+  // console.log("this is the target user id" + targetUserId);
+
+  useEffect(() => {
+    if (!userId) return;
+    const socket = createSocketConnection();
+
+    socket.emit("joinChat", {
+      firstName: user.data.firstName,
+       userId,
+      targetUserId,
+    });
+    socket.on("messageReceived", ({ firstName,lastName, text }) => {
+      setMessages((messages) => [...messages, { firstName,lastName, text }]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [userId, targetUserId]);
+
+  const sendMessage = () => {
+    // Use the existing socket instance
+    const socket = createSocketConnection();
+
+    socket.emit("sendMessage", {
+      firstName: user.data.firstName,
+      lastName: user.data.lastName,
+      userId,
+      targetUserId,
+      text: newMessage,
+    });
+    setNewMessage("");
+  };
+
+  return (
+    <div className="w-3/4 mt-20 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
+      <h1 className="p-5 border-b border-gray-600">Chat</h1>
+      <div className="flex-1 overflow-scroll p-5">
+        {messages.map((msg, index) => {
+          return (
+            <div key={index}>
+              <div className="chat-header">
+                {`${msg?.firstName}`} {`${msg?.lastName}`}
+                <time className="text-xs opacity-50"> 2 hours ago</time>
+              </div>
+              <div className="chat-bubble">{msg.text}</div>
+              <div className="chat-footer opacity-50">Seen</div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="p-5 border-t border-gray-600 flex items-center gap-2">
+        <input
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          className="flex-1 border border-gray-500 text-white rounded p-2"
+        ></input>
+        <button type="submit" onClick={sendMessage} className="btn btn-secondary">
+          Send
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

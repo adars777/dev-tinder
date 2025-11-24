@@ -30,32 +30,59 @@ const receiveRequests = AsyncHandler(async (req, res) => {
 });
 
 const connections = AsyncHandler(async (req, res) => {
+  // try {
+  //   const loggedUser = await req.user;
+  //   const connections = await connectionRequestModel
+  //     .find({
+  //       $or: [
+  //         { toUserId: loggedUser._id, status: "accepted" },
+  //         { fromUserId: loggedUser._id, status: "accepted" },
+  //       ],
+  //     })
+  //     .populate("fromUserId", "firstName lastName photoUrl about skills age")
+  //     .populate("toUserId", "firstName lastName photoUrl about skills age")
+
+  //   if (!connections) {
+  //     throw new ApiError("Connection Not Found!!");
+  //   }
+
+  //   const data = connections.map((row) => row.fromUserId);
+
+  //   res
+  //     .status(200)
+  //     .json(new ApiResponse(200, "Connections fetched successfully!", data));
+  // } catch (error) {
+  //   throw new ApiError(
+  //     500,
+  //     "Getting Error while fetching the connections!!",
+  //     error.message
+  //   );
+  // }
+
   try {
-    const loggedUser = await req.user;
-    const connections = await connectionRequestModel
-      .find({
-        $or: [
-          { toUserId: loggedUser._id, status: "accepted" },
-          { fromUserId: loggedUser._id, status: "accepted" },
-        ],
-      })
-      .populate("fromUserId", "firstName lastName photoUrl about skills age");
+    const loggedInUser = await req.user;
 
-    if (!connections) {
-      throw new ApiError("Connection Not Found!!");
-    }
+    const connectionRequests = await connectionRequestModel.find({
+      $or: [
+        { toUserId: loggedInUser._id, status: "accepted" },
+        { fromUserId: loggedInUser._id, status: "accepted" },
+      ],
+    })
+      .populate("fromUserId", "firstName lastName photoUrl about skills age")
+      .populate("toUserId", "firstName lastName photoUrl about skills age");
 
-    const data = connections.map((row) => row.fromUserId);
+    // console.log(connectionRequests);
 
-    res
-      .status(200)
-      .json(new ApiResponse(200, "Connections fetched successfully!", data));
-  } catch (error) {
-    throw new ApiError(
-      500,
-      "Getting Error while fetching the connections!!",
-      error.message
-    );
+    const data = connectionRequests.map((row) => {
+      if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
+        return row.toUserId;
+      }
+      return row.fromUserId;
+    });
+
+    res.json({ data });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
   }
 });
 

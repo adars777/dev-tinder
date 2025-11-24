@@ -7,7 +7,7 @@ const {
   reviewRequest,
 } = require("../controllers/connectionReqeust.controller");
 
-router.route("/request/send/:status/:toUserId").post(userAuth, sendResponse);
+router.route("/request/send/:status/:toUs2erId").post(userAuth, sendResponse);
 router.route("/request/review/:status/:requestId").post(userAuth, reviewRequest);
 
 

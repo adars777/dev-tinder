@@ -53,7 +53,7 @@ const registerUser = AsyncHandler(async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email);
+    // console.log(email);
 
     const user = await User.findOne({ email: email });
     if (!user) {

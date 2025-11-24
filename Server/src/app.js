@@ -5,7 +5,8 @@ const userRouter = require("./routes/user.routes");
 const connectionRouter = require("./routes/connectionRequest.routes");
 const profileRouter = require("./routes/profile.route");
 const cors = require("cors");
-const http = require("http")
+const http = require("http");
+const chatRouter = require("./routes/chat.route");
 
 // /middlewaers
 
@@ -24,5 +25,7 @@ app.use(cookieParser());
 app.use("/api/v2/users", userRouter);
 app.use("/api/v2/connections", connectionRouter);
 app.use("/api/v2/profile", profileRouter);
+app.use("/api/v2/chat", chatRouter);
+
 
 module.exports = { app };

@@ -30,7 +30,7 @@ const EditProfileForm = ({ user }) => {
       );
 
       dispatch(addUser(res.data));
-      console.log(res);
+      // console.log(res);
       
       
     } catch (error) {
