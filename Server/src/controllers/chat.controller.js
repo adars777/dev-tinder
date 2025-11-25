@@ -14,6 +14,7 @@ const fetchChats = AsyncHandler(async (req, res) => {
       path: "messages.senderId",
       select: "firstName lastName",
     });
+    
     if (!chat) {
       chat = new Chat({
         participants: [userId, targetUserId],

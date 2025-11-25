@@ -16,29 +16,17 @@ const Chat = () => {
       withCredentials: true,
     });
 
-        console.log(chat);
-
-
-    // const chatMessages = chat?.data?.data?.messages.map((msg) => {
-    //   return {
-    //     firstName: msg?.senderId?.firstName,
-    //     lastName:  msg?.senderId?.lastName,
-    //     text: msg.text,
-    //   };
-    // });
-
+    // console.log(chat);
 
     const chatMessages =
-  chat?.data?.data
-    ?.flatMap((chatItem) =>
-      chatItem.messages.map((msg) => ({
-        firstName: msg?.senderId?.firstName,
-        lastName: msg?.senderId?.lastName,
-        text: msg.text,
-      }))
-    ) || [];
-
-    
+      chat?.data?.data?.flatMap((chatItem) =>
+        chatItem.messages.map((msg) => ({
+          firstName: msg?.senderId?.firstName,
+          lastName: msg?.senderId?.lastName,
+          text: msg.text,
+          createdAt: msg.createdAt,
+        }))
+      ) || [];
 
     setMessages(chatMessages);
   };
@@ -56,11 +44,11 @@ const Chat = () => {
 
     socket.emit("joinChat", {
       firstName: user.data.firstName,
-       userId,
+      userId,
       targetUserId,
     });
-    socket.on("messageReceived", ({ firstName,lastName, text }) => {
-      setMessages((messages) => [...messages, { firstName,lastName, text }]);
+    socket.on("messageReceived", ({ firstName, lastName, text }) => {
+      setMessages((messages) => [...messages, { firstName, lastName, text }]);
     });
 
     return () => {
@@ -87,14 +75,41 @@ const Chat = () => {
       <h1 className="p-5 border-b border-gray-600">Chat</h1>
       <div className="flex-1 overflow-scroll p-5">
         {messages.map((msg, index) => {
+          // console.log(msg);
+          const getDate = new Date(msg.createdAt);
+          // console.log(getDate);
+          // const date = getDate.toISOString().split("T")[0]; //
+          const time = getDate.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          // console.log(date);
+
+          const isMe = user?.data?.firstName === msg.firstName;
+
           return (
-            <div key={index}>
-              <div className="chat-header">
-                {`${msg?.firstName}`} {`${msg?.lastName}`}
-                <time className="text-xs opacity-50"> 2 hours ago</time>
+            <div
+              key={index}
+              className={`flex mb-3 ${isMe ? "justify-end" : "justify-start"}`}
+            >
+              <div className={`max-w-xs p-3 rounded-lg`}>
+                <div className="text-xs">
+                  {msg.firstName} {msg.lastName}
+                  {"  "}
+                </div>
+
+                <div
+                  className={`flex px-2 rounded-xl ${
+                    isMe ? "bg-blue-700 rounded-br-none chat chat-start" : "bg-slate-700 rounded-bl-none chat chat-end"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+
+                <div className="text-[10px] opacity-70 text-right">
+                  {time}
+                </div>
               </div>
-              <div className="chat-bubble">{msg.text}</div>
-              <div className="chat-footer opacity-50">Seen</div>
             </div>
           );
         })}
@@ -102,10 +117,16 @@ const Chat = () => {
       <div className="p-5 border-t border-gray-600 flex items-center gap-2">
         <input
           value={newMessage}
+          placeholder="Enter text here..."
           onChange={(e) => setNewMessage(e.target.value)}
           className="flex-1 border border-gray-500 text-white rounded p-2"
         ></input>
-        <button type="submit" onClick={sendMessage} className="btn btn-secondary">
+        <button
+          type="submit"
+          
+          onClick={sendMessage}
+          className="btn btn-secondary"
+        >
           Send
         </button>
       </div>
