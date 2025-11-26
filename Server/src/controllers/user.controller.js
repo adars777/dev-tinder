@@ -6,6 +6,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validationProfileEditData } = require("../utils/validation");
 const { validPasswordEditData } = require("../utils/validation");
+const cloudinary = require("../utils/cloudinary");
+const upload = require("../middlewares/multer");
 
 const registerUser = AsyncHandler(async (req, res) => {
   const {
@@ -15,7 +17,6 @@ const registerUser = AsyncHandler(async (req, res) => {
     skills,
     about,
     gender,
-    photoUrl,
     password,
     age,
   } = req.body;
@@ -34,7 +35,6 @@ const registerUser = AsyncHandler(async (req, res) => {
       gender,
       age,
       password: passwordHash,
-      photoUrl,
       about,
       skills,
     });
@@ -133,6 +133,50 @@ const editProfile = AsyncHandler(async (req, res) => {
   }
 });
 
+const updateProfile = AsyncHandler(async (req, res) => {
+  try {
+    const user = await req.user; // logged-in user
+    if (!user) return res.status(401).json({ message: "Unauthorized" });
+
+    console.log(req.file);
+    
+    if (!req.file) return res.status(400).json({ message: "File missing" });
+
+    // cloudinary upload helper using buffer
+    const upload = () =>
+      new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "avatars" },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        ).end(req.file.buffer);
+      });
+
+    const result = await upload();
+    console.log(result);
+    
+
+    // Save URL to DB
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { photoUrl: result.secure_url },
+      { new: true }
+    );
+
+    return res.json({
+      message: "Avatar uploaded successfully",
+      avatar: updatedUser.avatar,
+      user: updatedUser
+    });
+
+  }  catch (error) {
+    console.error("Cloudinary Upload Error:", error);
+    res.status(500).json({ success: false, message: "Upload failed" });
+  }
+});
+
 const changeCurrentPassword = AsyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
@@ -177,4 +221,5 @@ module.exports = {
   editProfile,
   deleteUser,
   changeCurrentPassword,
+  updateProfile,
 };

@@ -1,12 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-
+ 
 const UserCard = ({ user }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+ 
   const sentRequest = async (status, id) => {
     try {
       await axios.post(
@@ -22,16 +18,16 @@ const UserCard = ({ user }) => {
 
   return (
     <div>
-      <div className="card bg-base-100 w-96 shadow-sm mb-20 mx-auto mt-5 border border-gray-700 rounded-none">
+      <div className="card bg-base-100 w-80 shadow-sm mb-10 mx-auto mt-5 border border-gray-700 rounded-none">
         <figure>
-          <img src={user.photoUrl} alt="photo" />
+          <img className="w-auto h-fit p-2" src={user.photoUrl} alt="photo" />
         </figure>
         <div className="card-body">
           <h2 className="card-title capitalize">
             {user.firstName} {user.lastName}
           </h2>
           <p>{user.about}</p>
-          <div className="card-actions justify-between mt-4 ">
+          <div className="card-actions justify-between ">
             <button
               onClick={() => sentRequest("ignored", user._id)}
               className="btn bg-red-600  hover:bg-red-700"

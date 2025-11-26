@@ -25,7 +25,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="text-3xl font-semibold mt-18">
+    <div className="text-3xl font-semibold mt-18 mb-20">
       {feed && feed.map((user, index) => <UserCard key={index} user={user} />)}
     </div>
   );

@@ -24,6 +24,7 @@ const Login = () => {
       // console.log(res.data);
       dispatch(addUser(res.data.user));
       navigate("/");
+      window.location.reload();
     } catch (error) {
       if (error.status === 500) {
         setError("Invalid Credentials Please try Again!!");
@@ -36,7 +37,7 @@ const Login = () => {
     <div className="w-screen min-h-screen flex items-center justify-center bg-repeat bg-center bg-auto">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md px-6">
         <fieldset className="fieldset shadow-black shadow-2xl  w-xs rounded-xs p-4 m-auto backdrop-blur-xl">
-        <h1 className="text-2xl  font-semibold text-center">Sign In</h1>
+          <h1 className="text-2xl  font-semibold text-center">Sign In</h1>
 
           <div className="flex flex-col gap-2">
             <label className="label font-semibold text-white ">Email</label>

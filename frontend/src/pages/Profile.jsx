@@ -9,22 +9,7 @@ import EditProfile from "../components/EditProfile";
 const Profile = () => {
   // const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-// console.log(user);
-
-  // const getprofile = async () => {
-  //   try {
-  //     const res = await axios.get("/api/v2/profile/feed", {
-  //       withCredentials: true,
-  //     });
-  //     dispatch(addUser(res.data.data));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getprofile();
-  // }, []);
+  // console.log(user);
 
   return (
     user && (

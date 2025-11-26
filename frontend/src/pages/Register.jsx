@@ -93,7 +93,7 @@ export default function Register() {
             <textarea
               className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
               placeholder="Text here..."
-              {...register("about", { required: true })}
+              {...register("about")}
             />
           </div>
 
@@ -143,16 +143,7 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="label font-bold  text-white ">Photo URL</label>
-
-            <input
-              type="text"
-              className="focus:outline-none border-1 bg-transparent p-2 border-gray-700"
-              placeholder="photo URL"
-              {...register("photoUrl")}
-            />
-          </div>
+       
 
           <p className="flex gap-2 mt-2">
             <span className="font-bold ">Already have an Account? </span>

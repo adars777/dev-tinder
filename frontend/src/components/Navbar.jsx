@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import {  removeUser } from "../utils/userSlice";
+import { removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -22,26 +22,6 @@ const Navbar = () => {
       console.error(error);
     }
   };
-
-  // const fetchUser = async () => {
-  //   if (userData) return;
-  //   try {
-  //     const res = await axios.get("/api/v2/users/profile", {
-  //       withCredentials: true,
-  //     });
-
-  //     // console.log(res.data.data);
-
-  //     dispatch(addUser(res?.data?.data));
-  //     // console.log(res.data.message);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
-
   return (
     <div>
       <div className="navbar bg-black shadow-sm fixed top-0 z-10  ">

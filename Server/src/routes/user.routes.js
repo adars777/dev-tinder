@@ -7,11 +7,11 @@ const {
   userProfile,
   logout,
   editProfile,
-
   changeCurrentPassword,
   deleteUser,
+  updateProfile,
 } = require("../controllers/user.controller");
-const { register } = require("module");
+const upload = require("../middlewares/multer");
 
 // const router = Router();
 
@@ -24,6 +24,10 @@ router.route("/profile").get(userAuth, userProfile);
 router.route("/logout").post(userAuth, logout);
 
 router.route("/profile/edit").patch(userAuth, editProfile);
+
+router
+  .route("/profile/uploadphoto")
+  .patch(userAuth, upload.single("avatar"), updateProfile);
 
 router.route("/profile/edit-password").patch(userAuth, changeCurrentPassword);
 
