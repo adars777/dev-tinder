@@ -8,6 +8,7 @@ const UserCard = ({ user }) => {
       await axios.post(
         `/api/v2/connections/request/send/${status}/${id}`,
         { withCredential: true }
+        
       );
       // console.log(res);
       window.location.reload();

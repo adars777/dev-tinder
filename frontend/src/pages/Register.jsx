@@ -20,6 +20,7 @@ export default function Register() {
         withCredentials: true,
       });
       console.log(res);
+      alert("User registered Successfully..")
 
       navigate("/login");
     } catch (error) {

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Link } from "react-router";
 
+
 const Login = () => {
   const {
     register,
@@ -23,6 +24,7 @@ const Login = () => {
       });
       // console.log(res.data);
       dispatch(addUser(res.data.user));
+      alert("Logged In Successfully..")
       navigate("/");
       window.location.reload();
     } catch (error) {
