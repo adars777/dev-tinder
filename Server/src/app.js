@@ -13,7 +13,7 @@ const chatRouter = require("./routes/chat.route");
 app.use(express.json({ limit: "16kb" }));
 app.use(
   cors({
-    origin: "http://localhost:5173", // ✅ your React app’s URL
+    origin: "https://dev-tinder-frontend-qkn9.onrender.com", // ✅ your React app’s URL
     credentials: true, // if you use cookies or auth headers
   })
 );
