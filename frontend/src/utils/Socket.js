@@ -1,5 +1,5 @@
 import io from "socket.io-client"
 
 export const createSocketConnection = ()=>{
-    return io("http://localhost:8080/")
+    return io("https://dev-tinder-server-zfwo.onrender.com/")
 }

@@ -10,16 +10,8 @@ const cloudinary = require("../utils/cloudinary");
 const upload = require("../middlewares/multer");
 
 const registerUser = AsyncHandler(async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    skills,
-    about,
-    gender,
-    password,
-    age,
-  } = req.body;
+  const { firstName, lastName, email, skills, about, gender, password, age } =
+    req.body;
 
   try {
     const user = await User.findOne({ email: email });
@@ -69,7 +61,14 @@ const loginUser = async (req, res) => {
       );
 
       const loggedInUser = await User.findById(user._id).select("-password");
-      res.cookie("token", token);
+      // res.cookie("token", token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // true in production with HTTPS
+        sameSite: "none", // if frontend and backend are on different domains
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
       return res
         .status(200)
         .json(
@@ -139,24 +138,22 @@ const updateProfile = AsyncHandler(async (req, res) => {
     if (!user) return res.status(401).json({ message: "Unauthorized" });
 
     console.log(req.file);
-    
+
     if (!req.file) return res.status(400).json({ message: "File missing" });
 
     // cloudinary upload helper using buffer
     const upload = () =>
       new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream(
-          { folder: "avatars" },
-          (err, result) => {
+        cloudinary.uploader
+          .upload_stream({ folder: "avatars" }, (err, result) => {
             if (err) reject(err);
             else resolve(result);
-          }
-        ).end(req.file.buffer);
+          })
+          .end(req.file.buffer);
       });
 
     const result = await upload();
     console.log(result);
-    
 
     // Save URL to DB
     const updatedUser = await User.findByIdAndUpdate(
@@ -168,10 +165,9 @@ const updateProfile = AsyncHandler(async (req, res) => {
     return res.json({
       message: "Avatar uploaded successfully",
       avatar: updatedUser.avatar,
-      user: updatedUser
+      user: updatedUser,
     });
-
-  }  catch (error) {
+  } catch (error) {
     console.error("Cloudinary Upload Error:", error);
     res.status(500).json({ success: false, message: "Upload failed" });
   }
