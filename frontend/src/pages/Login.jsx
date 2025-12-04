@@ -19,7 +19,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("/api/v2/users/login", data, {
+      const res = await axios.post("https://dev-tinder-server-zfwo.onrender.com/api/v2/users/login", data, {
         withCredentials: true, // this with credentials is for send cookies and stores in web browser
       });
       // console.log(res.data);
