@@ -1,3 +1,3 @@
-const BASE_URL = "https://chat-app-backend-qpc8.onrender.com/api/v2";
+const BASE_URL = "https://dev-tinder-backendd.onrender.com/api/v2";
 
 export default { BASE_URL };
