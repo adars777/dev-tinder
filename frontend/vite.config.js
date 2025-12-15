@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      "/api": "https://chat-app-backend-qpc8.onrender.com",
+      "/api": "https://dev-tinder-backendd.onrender.com",
     },
   },
 });
