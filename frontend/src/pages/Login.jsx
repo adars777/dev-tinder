@@ -14,6 +14,8 @@ const Login = () => {
     // formState: { errors },
   } = useForm();
 
+  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -25,7 +27,7 @@ const Login = () => {
       // console.log(res.data);
       dispatch(addUser(res.data.user));
       alert("Logged In Successfully..")
-      navigate("/");
+      navigate("/feed");
       window.location.reload();
     } catch (error) {
       if (error.status === 500) {
