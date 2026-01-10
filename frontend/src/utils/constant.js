@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // const BASE_URL = "https://dev-tinder-server-zfwo.onrender.com/api/v2";
 
 // export default { BASE_URL };
@@ -11,3 +12,8 @@ const api = axios.create({
 });
 
 export default api;
+=======
+const BASE_URL = "https://dev-tinder-backendd.onrender.com";
+
+export default { BASE_URL };
+>>>>>>> b7de29974830fad78347c49ed856bd2835cbc9f6
