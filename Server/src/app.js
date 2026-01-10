@@ -23,7 +23,7 @@ app.set("trust proxy", 1); // REQUIRED for Render
 app.use(
   cors({
 
-    origin: "https://dev-tinder-client.onrender.com",
+    origin: "https://dev-tinder-client.onrender.com/",
     credentials: true
   })
 );
