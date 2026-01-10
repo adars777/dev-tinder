@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router";
 import { Provider } from "react-redux";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 import appStore from "./utils/appStore";
 import Body from "./pages/Body";
 import Login from "./pages/Login";
