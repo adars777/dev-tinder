@@ -1,4 +1,4 @@
-import api from "../utils/constant";
+import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ const Connections = () => {
   const dispatch = useDispatch();
   const fetchConnections = async () => {
     try {
-      const res = await api.get("/api/v2/profile/connections", {
+      const res = await axios.get("/api/v2/profile/connections", {
         withCredentials: true,
       });
       // console.log(res.data.data);

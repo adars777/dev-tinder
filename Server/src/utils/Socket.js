@@ -5,12 +5,8 @@ const { Chat } = require("../models/chat");
 const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
-<<<<<<< HEAD
-      origin: "https://dev-tinder-frontend-qkn9.onrender.com", // ✅ your React app’s URL
-      withCredentials: true
-=======
       origin: "https://dev-tinder-client.onrender.com", // ✅ your React app’s URL
->>>>>>> b7de29974830fad78347c49ed856bd2835cbc9f6
+      withCredentials: true,
     },
   });
 
@@ -56,7 +52,12 @@ const initializeSocket = (server) => {
 
           await chat.save();
           const savedMessage = chat.messages[chat.messages.length - 1];
-                io.to(roomId).emit("messageReceived", { firstName,lastName, text, createdAt: savedMessage.createdAt });
+          io.to(roomId).emit("messageReceived", {
+            firstName,
+            lastName,
+            text,
+            createdAt: savedMessage.createdAt,
+          });
         } catch (error) {
           console.error(
             `This error is coming while storing message in database: ${error}`

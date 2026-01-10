@@ -1,11 +1,10 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Link } from "react-router";
-
-import api from "../utils/constant";
 
 
 const Login = () => {
@@ -20,7 +19,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const onSubmit = async (data) => {
     try {
-      const res = await api.post("/api/v2/users/login", data, {
+      const res = await axios.post("/api/v2/users/login", data, {
         withCredentials: true, // this with credentials is for send cookies and stores in web browser
       });
       // console.log(res.data);

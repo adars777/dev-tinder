@@ -1,11 +1,11 @@
-import api from "../utils/constant";
+import axios from "axios";
 import React from "react";
  
 const UserCard = ({ user }) => {
  
   const sentRequest = async (status, id) => {
     try {
-      await api.post(
+      await axios.post(
         `/api/v2/connections/request/send/${status}/${id}`,
         { withCredential: true }
         

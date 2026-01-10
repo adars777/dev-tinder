@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { createSocketConnection } from "../utils/Socket";
-import api from "../utils/constant";
+import axios from "axios";
+
 const Chat = () => {
   const { targetUserId } = useParams();
   const [messages, setMessages] = useState([]);
@@ -11,7 +12,7 @@ const Chat = () => {
   const userId = user?.data?._id;
 
   const fetchChatMessages = async () => {
-    const chat = await api.get("/api/v2/chat/fetchchat/" + targetUserId, {
+    const chat = await axios.get("/api/v2/chat/fetchchat/" + targetUserId, {
       withCredentials: true,
     });
 

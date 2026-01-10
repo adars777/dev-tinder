@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router";
 import Footer from "../components/Footer";
-import api from "../utils/constant"; 
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
@@ -15,7 +15,7 @@ const Body = () => {
   const fetchUser = async () => {
 
     try {
-      const res = await api.get("/api/v2/users/profile", {
+      const res = await axios.get("/api/v2/users/profile", {
         withCredentials: true,
       });
 

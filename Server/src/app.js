@@ -22,13 +22,9 @@ app.set("trust proxy", 1); // REQUIRED for Render
 
 app.use(
   cors({
-<<<<<<< HEAD
+
     origin: "https://dev-tinder-client.onrender.com",
     credentials: true
-=======
-    origin: "https://dev-tinder-client.onrender.com", // ✅ your React app’s URL
-    credentials: true, // if you use cookies or auth headers
->>>>>>> b7de29974830fad78347c49ed856bd2835cbc9f6
   })
 );
 
