@@ -1,3 +1,3 @@
-const BASE_URL = "https://dev-tinder-server-zfwo.onrender.com/api/v2";
+const BASE_URL = "https://dev-tinder-x0er.onrender.com/";
 
 export default { BASE_URL };
