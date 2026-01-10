@@ -3,9 +3,9 @@ const User = require("../models/user.model");
 const { ApiError } = require("../utils/ApiError");
 
 const userAuth = async (req, res, next) => {
-  const { token } = req.cookies;
-  
-  if(!token){
+  const token = req.cookies?.token;
+
+  if (!token) {
     throw new ApiError("Unauthorized access!!", 401);
   }
   const decodedObj = await jwt.verify(token, process.env.JWT_SECRET_KEY);

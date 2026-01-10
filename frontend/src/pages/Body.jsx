@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router";
 import Footer from "../components/Footer";
-import axios from "axios";
+import api from "../utils/constant"; 
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
@@ -15,15 +15,14 @@ const Body = () => {
   const fetchUser = async () => {
 
     try {
-      const user = await axios.get("/api/v2/users/profile", {
-        withCredewntials: true,
+      const res = await api.get("/api/v2/users/profile", {
+        withCredentials: true,
       });
 
-      dispatch(addUser(user.data));
+      dispatch(addUser(res.data));
     } catch (error) {
-      if (error.status === 500) {
-        Navigate("/login");
-      }
+      // if any error (not authenticated etc.) redirect to login
+      Navigate("/login");
       console.error(error);
     }
   };

@@ -30,44 +30,16 @@ const receiveRequests = AsyncHandler(async (req, res) => {
 });
 
 const connections = AsyncHandler(async (req, res) => {
-  // try {
-  //   const loggedUser = await req.user;
-  //   const connections = await connectionRequestModel
-  //     .find({
-  //       $or: [
-  //         { toUserId: loggedUser._id, status: "accepted" },
-  //         { fromUserId: loggedUser._id, status: "accepted" },
-  //       ],
-  //     })
-  //     .populate("fromUserId", "firstName lastName photoUrl about skills age")
-  //     .populate("toUserId", "firstName lastName photoUrl about skills age")
-
-  //   if (!connections) {
-  //     throw new ApiError("Connection Not Found!!");
-  //   }
-
-  //   const data = connections.map((row) => row.fromUserId);
-
-  //   res
-  //     .status(200)
-  //     .json(new ApiResponse(200, "Connections fetched successfully!", data));
-  // } catch (error) {
-  //   throw new ApiError(
-  //     500,
-  //     "Getting Error while fetching the connections!!",
-  //     error.message
-  //   );
-  // }
-
   try {
     const loggedInUser = await req.user;
 
-    const connectionRequests = await connectionRequestModel.find({
-      $or: [
-        { toUserId: loggedInUser._id, status: "accepted" },
-        { fromUserId: loggedInUser._id, status: "accepted" },
-      ],
-    })
+    const connectionRequests = await connectionRequestModel
+      .find({
+        $or: [
+          { toUserId: loggedInUser._id, status: "accepted" },
+          { fromUserId: loggedInUser._id, status: "accepted" },
+        ],
+      })
       .populate("fromUserId", "firstName lastName photoUrl about skills age")
       .populate("toUserId", "firstName lastName photoUrl about skills age");
 
@@ -135,5 +107,5 @@ const userFeed = AsyncHandler(async (req, res) => {
 module.exports = {
   receiveRequests,
   connections,
-  userFeed
+  userFeed,
 };

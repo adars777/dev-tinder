@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import axios from "axios";
+import api from "../utils/constant";
 import { useNavigate } from "react-router";
 
 export default function Register() {
@@ -16,7 +16,7 @@ export default function Register() {
     console.log(data);
     
     try {
-      const res = axios.post("/api/v2/users/register", data, {
+      const res = api.post("/api/v2/users/register", data, {
         withCredentials: true,
       });
       console.log(res);

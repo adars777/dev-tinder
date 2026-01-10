@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import api from "../utils/constant";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -25,7 +25,7 @@ const EditProfileForm = ({ user }) => {
   // ----- TEXT FIELDS SUBMIT -----
   const onSubmit = async (data) => {
     try {
-      const res = await axios.patch("/api/v2/users/profile/edit", data, {
+      const res = await api.patch("/api/v2/users/profile/edit", data, {
         withCredentials: true,
       });
       dispatch(addUser(res.data));
@@ -62,7 +62,7 @@ const EditProfileForm = ({ user }) => {
       const form = new FormData();
       form.append("avatar", avatarFile); // must match multer.single("avatar")
 
-      const res = await axios.patch("/api/v2/users/profile/uploadphoto", form, {
+      const res = await api.patch("/api/v2/users/profile/uploadphoto", form, {
         withCredentials: true,
       });
 

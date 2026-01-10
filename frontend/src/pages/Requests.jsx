@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import api from "../utils/constant";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeRequests, setRequests } from "../utils/requestSlice";
@@ -12,7 +12,7 @@ const Requests = () => {
 
   const reviewRequest = async (status, _id) => {
     try {
-      await axios.post(
+      await api.post(
         "/api/v2/connections/request/review/" + status + "/" + _id,
         {},
         { withCredentials: true }
@@ -31,7 +31,7 @@ const Requests = () => {
     if (requests) return;
 
     try {
-      const res = await axios.get("/api/v2/profile/requests/received", {
+      const res = await api.get("/api/v2/profile/requests/received", {
         withCredentials: true,
       });
       // console.log(res.data.data);

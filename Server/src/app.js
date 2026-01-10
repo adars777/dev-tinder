@@ -5,18 +5,28 @@ const userRouter = require("./routes/user.routes");
 const connectionRouter = require("./routes/connectionRequest.routes");
 const profileRouter = require("./routes/profile.route");
 const cors = require("cors");
-const http = require("http");
 const chatRouter = require("./routes/chat.route");
 
 // /middlewaers
 
 app.use(express.json({ limit: "16kb" }));
+// app.use(
+//   cors({
+//     origin: "https://dev-tinder-frontend-qkn9.onrender.com", // ✅ your React app’s URL
+//     credentials: true, // if you use cookies or auth headers
+//   })
+// );
+
+
+app.set("trust proxy", 1); // REQUIRED for Render
+
 app.use(
   cors({
-    origin: "https://dev-tinder-frontend-qkn9.onrender.com", // ✅ your React app’s URL
-    credentials: true, // if you use cookies or auth headers
+    origin: "https://dev-tinder-client.onrender.com",
+    credentials: true
   })
 );
+
 
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());

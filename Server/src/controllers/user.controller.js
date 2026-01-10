@@ -64,8 +64,8 @@ const loginUser = async (req, res) => {
       // res.cookie("token", token);
       res.cookie("token", token, {
         httpOnly: true,
-        secure: true, // true in production with HTTPS
-        sameSite: "none", // if frontend and backend are on different domains
+        secure: true, // REQUIRED on HTTPS
+        sameSite: "None", // REQUIRED for cross-domain
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 

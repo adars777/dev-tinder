@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import api from "../utils/constant";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "../components/UserCard";
 
@@ -11,7 +11,7 @@ const Feed = () => {
   const getFeed = async () => {
     if (feed) return;
     try {
-      const res = await axios.get("/api/v2/profile/feed", {
+      const res = await api.get("/api/v2/profile/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(res?.data?.data));

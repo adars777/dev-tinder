@@ -6,6 +6,7 @@ const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
       origin: "https://dev-tinder-frontend-qkn9.onrender.com", // ✅ your React app’s URL
+      withCredentials: true
     },
   });
 

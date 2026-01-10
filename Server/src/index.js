@@ -2,7 +2,6 @@ const dotenv = require("dotenv");
 const connectDB = require("./db/index");
 const { app } = require("./app");
 const http = require("http");
-const cors = require("cors");
 const initializeSocket = require("./utils/Socket");
 
 dotenv.config({
