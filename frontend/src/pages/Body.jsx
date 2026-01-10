@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Body = () => {
   const dispatch = useDispatch();

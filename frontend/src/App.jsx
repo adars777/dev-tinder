@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import appStore from "./utils/appStore";
@@ -18,16 +18,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Body />}>
           {/* DEFAULT ROUTE */}
-          <Route index element={<Navigate to="/login" replace />} />
-
+          <Route index element={<Feed />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          {/* <Route path="feed" element={<Feed />} />
+          <Route path="feed" element={<Feed />} />
           <Route path="profile" element={<Profile />} />
           <Route path="connections" element={<Connections />} />
           <Route path="requests" element={<Requests />} />
-          <Route path="chat/:targetUserId" element={<Chat />} /> */}
-
+          <Route path="chat/:targetUserId" element={<Chat />} />
+{/* 
           <Route
             path="feed"
             element={
@@ -72,7 +71,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-        </Route>
+        </Route> */}
+      </Route>
       </Routes>
     </Provider>
   );

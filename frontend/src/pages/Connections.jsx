@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { setConnections } from "../utils/connectionSlice";
 
 const Connections = () => {

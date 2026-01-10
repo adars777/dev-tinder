@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { removeFeed } from "../utils/feedSlice";
 
 const Navbar = () => {

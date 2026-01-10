@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeRequests, setRequests } from "../utils/requestSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Requests = () => {
   const dispatch = useDispatch();

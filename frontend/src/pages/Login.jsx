@@ -2,9 +2,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -24,6 +24,8 @@ const Login = () => {
       // console.log(res.data);
       dispatch(addUser(res.data.user));
       alert("Logged In Successfully..");
+      console.log("logged in");
+      
       navigate("/feed");
       window.location.reload();
     } catch (error) {
