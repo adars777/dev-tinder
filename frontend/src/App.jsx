@@ -22,11 +22,56 @@ function App() {
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="feed" element={<Feed />} />
+          {/* <Route path="feed" element={<Feed />} />
           <Route path="profile" element={<Profile />} />
           <Route path="connections" element={<Connections />} />
           <Route path="requests" element={<Requests />} />
-          <Route path="chat/:targetUserId" element={<Chat />} />
+          <Route path="chat/:targetUserId" element={<Chat />} /> */}
+
+          <Route
+            path="feed"
+            element={
+              <ProtectedRoute>
+                <Feed />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="connections"
+            element={
+              <ProtectedRoute>
+                <Connections />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="requests"
+            element={
+              <ProtectedRoute>
+                <Requests />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="chat/:targetUserId"
+            element={
+              <ProtectedRoute>
+                <Chat />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </Provider>
