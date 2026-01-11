@@ -17,27 +17,21 @@ app.use(express.json({ limit: "16kb" }));
 //   })
 // );
 
-
 app.set("trust proxy", 1); // REQUIRED for Render
 
 app.use(
   cors({
-
-    origin: "https://dev-tinder-3cz6.vercel.app/",
-    credentials: true
+    origin: ["http://localhost:5173", "https://dev-tinder-3cz6.vercel.app/"],
+    credentials: true,
   })
 );
 
-
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
-
-
 
 app.use("/api/v2/users", userRouter);
 app.use("/api/v2/connections", connectionRouter);
 app.use("/api/v2/profile", profileRouter);
 app.use("/api/v2/chat", chatRouter);
-
 
 module.exports = { app };
