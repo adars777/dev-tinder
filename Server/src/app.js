@@ -23,7 +23,7 @@ app.set("trust proxy", 1); // REQUIRED for Render
 app.use(
   cors({
 
-    origin: "https://dev-tinder-3cz6-g6ms6c6vd-adars777s-projects.vercel.app/",
+    origin: "https://dev-tinder-3cz6.vercel.app/",
     credentials: true
   })
 );
