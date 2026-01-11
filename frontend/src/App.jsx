@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Body />}>
           {/* DEFAULT ROUTE */}
-          <Route index element={<Feed />} />
+          <Route index element={<Login />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="feed" element={<Feed />} />
