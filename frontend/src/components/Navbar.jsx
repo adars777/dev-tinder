@@ -14,12 +14,16 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("/api/v2/users/logout", { withCredentials: true });
+      await axios.post("/api/v2/users/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       dispatch(removeFeed());
       Navigate("/login");
     } catch (error) {
       console.error(error);
+      // Even if logout API fails, remove user from state
+      dispatch(removeUser());
+      dispatch(removeFeed());
+      Navigate("/login");
     }
   };
   return (
