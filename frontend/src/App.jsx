@@ -19,8 +19,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Body />}>
         <Route index element={user ? <Navigate to="/feed" replace /> : <Login />} />
-        <Route path="login" element={user?<Feed/>:<Login/>} />
-        <Route path="register" element={user?<Feed/>:<Register/>} />
+        <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route
           path="feed"
           element={
