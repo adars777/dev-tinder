@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -13,7 +13,7 @@ const Login = () => {
     // formState: { errors },
   } = useForm();
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -26,6 +26,7 @@ const Login = () => {
       dispatch(addUser(res.data.user));
       alert("Logged In Successfully..");
       console.log("logged in");
+      navigate("/feed")
     } catch (error) {
       if (error.status === 500) {
         setError("Invalid Credentials Please try Again!!");
