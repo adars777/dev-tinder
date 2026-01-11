@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
-import appStore from "./utils/appStore";
+import PublicRoute from "./components/PublicRoute";
 import Body from "./pages/Body";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -13,68 +13,56 @@ import Requests from "./pages/Requests";
 import Chat from "./components/Chat";
 
 function App() {
+  const user = useSelector((store) => store.user);
+
   return (
-    <Provider store={appStore}>
-      <Routes>
-        <Route path="/" element={<Body />}>
-          {/* DEFAULT ROUTE */}
-          <Route index element={<Feed />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="feed" element={<Feed />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="connections" element={<Connections />} />
-          <Route path="requests" element={<Requests />} />
-          <Route path="chat/:targetUserId" element={<Chat />} />
-{/* 
-          <Route
-            path="feed"
-            element={
-              <ProtectedRoute>
-                <Feed />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="connections"
-            element={
-              <ProtectedRoute>
-                <Connections />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="requests"
-            element={
-              <ProtectedRoute>
-                <Requests />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="chat/:targetUserId"
-            element={
-              <ProtectedRoute>
-                <Chat />
-              </ProtectedRoute>
-            }
-          />
-        </Route> */}
+    <Routes>
+      <Route path="/" element={<Body />}>
+        <Route index element={user ? <Navigate to="/feed" replace /> : <Login />} />
+        <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route
+          path="feed"
+          element={
+            <ProtectedRoute>
+              <Feed />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="connections"
+          element={
+            <ProtectedRoute>
+              <Connections />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="requests"
+          element={
+            <ProtectedRoute>
+              <Requests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="chat/:targetUserId"
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
       </Route>
-      </Routes>
-    </Provider>
+    </Routes>
   );
 }
 

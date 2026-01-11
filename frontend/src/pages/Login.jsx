@@ -2,7 +2,6 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -14,7 +13,6 @@ const Login = () => {
   } = useForm();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [error, setError] = useState("");
   const onSubmit = async (data) => {
     try {
@@ -25,9 +23,7 @@ const Login = () => {
       dispatch(addUser(res.data.user));
       alert("Logged In Successfully..");
       console.log("logged in");
-      
-      navigate("/feed");
-      window.location.reload();
+      window.location.reload()
     } catch (error) {
       if (error.status === 500) {
         setError("Invalid Credentials Please try Again!!");
