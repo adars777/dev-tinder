@@ -99,11 +99,10 @@ const userProfile = AsyncHandler(async (req, res) => {
 
 const logout = AsyncHandler(async (req, res) => {
   try {
-    res.cookie("token", null, {
+    res.clearCookie("token", {
       httpOnly: true,
       secure: true, // Match login settings
       sameSite: "None", // Match login settings
-      expires: new Date(Date.now()),
     });
     return res
       .status(200)
