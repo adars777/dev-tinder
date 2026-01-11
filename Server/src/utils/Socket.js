@@ -5,7 +5,7 @@ const { Chat } = require("../models/chat");
 const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
-      origin: "https://dev-tinder-frontend-aba0.onrender.com/", // ✅ your React app’s URL
+      origin: "https://dev-tinder-3cz6-g6ms6c6vd-adars777s-projects.vercel.app/", // ✅ your React app’s URL
       withCredentials: true,
     },
   });
